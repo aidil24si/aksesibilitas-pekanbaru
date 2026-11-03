@@ -4,7 +4,7 @@ import { useAccessibility } from '../contexts'
 import {
   FACILITY_TYPE,
   FACILITY_TYPE_LABELS,
-  NEED_GROUP,
+  CORE_NEED_GROUPS,
   NEED_GROUP_LABELS,
   PUBLICATION_STATUS,
 } from '../domain/constants'
@@ -26,7 +26,7 @@ function FasilitasPage() {
         </p>
       </div>
 
-      {/* Filter Profil Kebutuhan Fungsional */}
+      {/* Filter Profil Kebutuhan Fungsional (Cakupan Inti Prototipe) */}
       <div className="mb-8 rounded-xl border border-gray-200 bg-gray-50 p-4 sm:p-6">
         <h2 className="mb-2 text-base font-semibold text-gray-900">
           Sesuaikan Kebutuhan Aksesibilitas Anda
@@ -36,7 +36,7 @@ function FasilitasPage() {
           meminta identifikasi medis pengguna.
         </p>
         <div className="flex flex-wrap gap-2">
-          {Object.values(NEED_GROUP).map((need) => {
+          {CORE_NEED_GROUPS.map((need) => {
             const isSelected = selectedNeeds.includes(need)
             return (
               <button

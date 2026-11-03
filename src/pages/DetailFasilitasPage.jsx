@@ -21,7 +21,7 @@ import { useAccessibility } from '../contexts'
 import {
   FACILITY_TYPE,
   FACILITY_TYPE_LABELS,
-  NEED_GROUP,
+  CORE_NEED_GROUPS,
   NEED_GROUP_LABELS,
   OBSERVATION_STATUS,
   USER_FACING_STATUS_LABELS,
@@ -232,7 +232,7 @@ function DetailFasilitasPage() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          {Object.values(NEED_GROUP).map((need) => {
+          {CORE_NEED_GROUPS.map((need) => {
             const isSelected = selectedNeeds.includes(need)
             return (
               <button

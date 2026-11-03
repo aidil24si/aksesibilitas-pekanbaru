@@ -47,19 +47,118 @@ export const FACILITY_TYPE_LABELS = Object.freeze({
  * Dimodelkan berdasarkan kebutuhan fungsional, BUKAN diagnosis medis.
  * Satu pengguna dapat memilih lebih dari satu kebutuhan.
  * Satu kriteria dapat relevan untuk lebih dari satu kelompok.
+ *
+ * Taksonomi terdiri dari 7 kelompok kebutuhan:
+ * - 5 kelompok inti prototipe (MOBILITY, STAMINA_PACING, VISION, HEARING, COGNITIVE)
+ * - 2 kelompok cakupan lanjutan (SENSORY_ENV, COMMUNICATION)
  */
 export const NEED_GROUP = Object.freeze({
   MOBILITY: 'mobility',
+  STAMINA_PACING: 'stamina_pacing',
   VISION: 'vision',
   HEARING: 'hearing',
   COGNITIVE: 'cognitive',
+  SENSORY_ENV: 'sensory_env',
+  COMMUNICATION: 'communication',
+})
+
+/**
+ * Cakupan status kelompok kebutuhan dalam sistem prototipe.
+ */
+export const NEED_GROUP_SCOPE = Object.freeze({
+  PROTOTYPE_CORE: 'prototype_core',
+  EXTENDED: 'extended',
+})
+
+/**
+ * Daftar kelompok kebutuhan yang masuk dalam cakupan inti prototipe (5 kelompok).
+ */
+export const CORE_NEED_GROUPS = Object.freeze([
+  NEED_GROUP.MOBILITY,
+  NEED_GROUP.STAMINA_PACING,
+  NEED_GROUP.VISION,
+  NEED_GROUP.HEARING,
+  NEED_GROUP.COGNITIVE,
+])
+
+/**
+ * Daftar kelompok kebutuhan yang masuk dalam cakupan lanjutan (2 kelompok).
+ */
+export const EXTENDED_NEED_GROUPS = Object.freeze([
+  NEED_GROUP.SENSORY_ENV,
+  NEED_GROUP.COMMUNICATION,
+])
+
+/**
+ * Metadata lengkap kelompok kebutuhan fungsional.
+ */
+export const NEED_GROUP_METADATA = Object.freeze({
+  [NEED_GROUP.MOBILITY]: Object.freeze({
+    id: NEED_GROUP.MOBILITY,
+    label: 'Mobilitas Fisik & Perpindahan',
+    description:
+      'Kebutuhan terkait kemudahan sirkulasi fisik bebas undakan, ramah kursi roda, alat bantu jalan, atau berjalan.',
+    scope: NEED_GROUP_SCOPE.PROTOTYPE_CORE,
+    isCore: true,
+  }),
+  [NEED_GROUP.STAMINA_PACING]: Object.freeze({
+    id: NEED_GROUP.STAMINA_PACING,
+    label: 'Daya Tahan Fisik & Istirahat',
+    description:
+      'Kebutuhan jeda pemulihan energi, bangku istirahat berkala, rute bertahap, dan peneduh cuaca panas.',
+    scope: NEED_GROUP_SCOPE.PROTOTYPE_CORE,
+    isCore: true,
+  }),
+  [NEED_GROUP.VISION]: Object.freeze({
+    id: NEED_GROUP.VISION,
+    label: 'Penglihatan & Navigasi Taktil',
+    description:
+      'Kebutuhan navigasi taktil, teks kontras tinggi, huruf Braille, dan panduan audio bagi hambatan penglihatan.',
+    scope: NEED_GROUP_SCOPE.PROTOTYPE_CORE,
+    isCore: true,
+  }),
+  [NEED_GROUP.HEARING]: Object.freeze({
+    id: NEED_GROUP.HEARING,
+    label: 'Pendengaran & Peringatan Visual',
+    description:
+      'Kebutuhan teks visual untuk pengumuman suara dan lampu strobo visual untuk peringatan darurat.',
+    scope: NEED_GROUP_SCOPE.PROTOTYPE_CORE,
+    isCore: true,
+  }),
+  [NEED_GROUP.COGNITIVE]: Object.freeze({
+    id: NEED_GROUP.COGNITIVE,
+    label: 'Orientasi Spasial & Navigasi Simbolik',
+    description:
+      'Kebutuhan denah lokasi "Anda Di Sini", piktogram universal, dan navigasi ruang intuitif.',
+    scope: NEED_GROUP_SCOPE.PROTOTYPE_CORE,
+    isCore: true,
+  }),
+  [NEED_GROUP.SENSORY_ENV]: Object.freeze({
+    id: NEED_GROUP.SENSORY_ENV,
+    label: 'Regulasi Stimulasi Sensorik Lingkungan',
+    description:
+      'Kebutuhan area tenang dan pengendalian input suara/cahaya berlebih bagi individu neurodivergen.',
+    scope: NEED_GROUP_SCOPE.EXTENDED,
+    isCore: false,
+  }),
+  [NEED_GROUP.COMMUNICATION]: Object.freeze({
+    id: NEED_GROUP.COMMUNICATION,
+    label: 'Akses Komunikasi Layanan Interaktif',
+    description:
+      'Kebutuhan interaksi layanan pelanggan dua arah secara tertulis/non-lisan di meja informasi.',
+    scope: NEED_GROUP_SCOPE.EXTENDED,
+    isCore: false,
+  }),
 })
 
 export const NEED_GROUP_LABELS = Object.freeze({
-  [NEED_GROUP.MOBILITY]: 'Mobilitas Fisik',
-  [NEED_GROUP.VISION]: 'Penglihatan',
-  [NEED_GROUP.HEARING]: 'Pendengaran',
-  [NEED_GROUP.COGNITIVE]: 'Kognitif / Pemrosesan Informasi',
+  [NEED_GROUP.MOBILITY]: NEED_GROUP_METADATA[NEED_GROUP.MOBILITY].label,
+  [NEED_GROUP.STAMINA_PACING]: NEED_GROUP_METADATA[NEED_GROUP.STAMINA_PACING].label,
+  [NEED_GROUP.VISION]: NEED_GROUP_METADATA[NEED_GROUP.VISION].label,
+  [NEED_GROUP.HEARING]: NEED_GROUP_METADATA[NEED_GROUP.HEARING].label,
+  [NEED_GROUP.COGNITIVE]: NEED_GROUP_METADATA[NEED_GROUP.COGNITIVE].label,
+  [NEED_GROUP.SENSORY_ENV]: NEED_GROUP_METADATA[NEED_GROUP.SENSORY_ENV].label,
+  [NEED_GROUP.COMMUNICATION]: NEED_GROUP_METADATA[NEED_GROUP.COMMUNICATION].label,
 })
 
 /**
@@ -68,15 +167,42 @@ export const NEED_GROUP_LABELS = Object.freeze({
  * dengan setiap kelompok tanpa meminta identifikasi medis.
  */
 export const NEED_GROUP_DESCRIPTIONS = Object.freeze({
-  [NEED_GROUP.MOBILITY]:
-    'Kebutuhan terkait kemudahan bergerak, termasuk penggunaan kursi roda, alat bantu jalan, atau kesulitan berjalan jauh.',
-  [NEED_GROUP.VISION]:
-    'Kebutuhan terkait penglihatan, termasuk penglihatan rendah, buta warna, atau ketiadaan penglihatan.',
-  [NEED_GROUP.HEARING]:
-    'Kebutuhan terkait pendengaran, termasuk kesulitan mendengar pengumuman atau percakapan.',
-  [NEED_GROUP.COGNITIVE]:
-    'Kebutuhan terkait pemrosesan informasi, termasuk kesulitan memahami tanda atau petunjuk yang kompleks.',
+  [NEED_GROUP.MOBILITY]: NEED_GROUP_METADATA[NEED_GROUP.MOBILITY].description,
+  [NEED_GROUP.STAMINA_PACING]: NEED_GROUP_METADATA[NEED_GROUP.STAMINA_PACING].description,
+  [NEED_GROUP.VISION]: NEED_GROUP_METADATA[NEED_GROUP.VISION].description,
+  [NEED_GROUP.HEARING]: NEED_GROUP_METADATA[NEED_GROUP.HEARING].description,
+  [NEED_GROUP.COGNITIVE]: NEED_GROUP_METADATA[NEED_GROUP.COGNITIVE].description,
+  [NEED_GROUP.SENSORY_ENV]: NEED_GROUP_METADATA[NEED_GROUP.SENSORY_ENV].description,
+  [NEED_GROUP.COMMUNICATION]: NEED_GROUP_METADATA[NEED_GROUP.COMMUNICATION].description,
 })
+
+/**
+ * Memeriksa apakah kelompok kebutuhan termasuk dalam cakupan inti prototipe.
+ *
+ * @param {string} needGroup - Nilai kelompok kebutuhan (misal: 'mobility').
+ * @returns {boolean}
+ */
+export function isCoreNeedGroup(needGroup) {
+  return CORE_NEED_GROUPS.includes(needGroup)
+}
+
+/**
+ * Mendapatkan salinan daftar kelompok kebutuhan yang masuk dalam cakupan inti prototipe.
+ *
+ * @returns {string[]}
+ */
+export function getCoreNeedGroups() {
+  return [...CORE_NEED_GROUPS]
+}
+
+/**
+ * Mendapatkan salinan daftar kelompok kebutuhan yang masuk cakupan lanjutan.
+ *
+ * @returns {string[]}
+ */
+export function getExtendedNeedGroups() {
+  return [...EXTENDED_NEED_GROUPS]
+}
 
 /**
  * Status publikasi data fasilitas.
