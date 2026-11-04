@@ -177,4 +177,39 @@ export const initialCriteria = [
       'Konsep umum aksesibilitas informasi untuk penyandang gangguan pendengaran.',
     devStatus: CRITERION_DEV_STATUS.DRAFT,
   }),
+
+  // =========================================================================
+  // DAYA TAHAN FISIK & ISTIRAHAT (STAMINA_PACING) — MAL & RUANG TERBUKA
+  // =========================================================================
+
+  createAccessibilityCriterion({
+    id: 'crit_circulation_rest_benches',
+    name: 'Bangku Istirahat',
+    description:
+      'Ketersediaan tempat duduk istirahat yang dapat digunakan secara gratis di area publik fasilitas, dengan konstruksi stabil dan dilengkapi sandaran punggung pada jalur sirkulasi yang bebas hambatan.',
+    needGroups: [NEED_GROUP.STAMINA_PACING],
+    applicableFacilityTypes: [
+      FACILITY_TYPE.MALL,
+      FACILITY_TYPE.PUBLIC_OPEN_SPACE,
+    ],
+    evidenceGuidance:
+      'Foto tempat duduk di area sirkulasi umum non-komersial, memperlihatkan kondisi fisik bangku (stabilitas dan sandaran punggung), serta penempatannya yang tidak memotong jalur pejalan kaki bebas hambatan. Keberadaan satu bangku saja tidak cukup membuktikan pemenuhan kebutuhan istirahat fasilitas.',
+    reference:
+      'ISO 21542:2021 Klausul 26 (rekomendasi interval 50–100 m sebagai panduan desain, bukan kewajiban hukum); Permen PUPR No. 14/PRT/M/2017 Bab III Bagian D (perabot jalan tidak boleh mengganggu sirkulasi pedestrian). Sandaran tangan merupakan rekomendasi ergonomis tambahan, bukan syarat wajib mutlak.',
+    devStatus: CRITERION_DEV_STATUS.DRAFT,
+  }),
+
+  createAccessibilityCriterion({
+    id: 'crit_open_space_shade',
+    name: 'Peneduh Cuaca',
+    description:
+      'Ketersediaan perlindungan dari paparan matahari langsung pada area istirahat dan jalur utama yang digunakan pengunjung, berupa tajuk pohon rindang alami atau kanopi atap buatan.',
+    needGroups: [NEED_GROUP.STAMINA_PACING],
+    applicableFacilityTypes: [FACILITY_TYPE.PUBLIC_OPEN_SPACE],
+    evidenceGuidance:
+      'Foto kondisi tutupan naungan peneduh (tajuk daun pohon rindang atau kanopi buatan) saat siang hari di atas area tempat duduk dan jalur sirkulasi pejalan kaki, serta ketinggian bebas peneduh dari lantai. Jika kecukupan naungan belum dapat dibuktikan, status harus tetap unknown.',
+    reference:
+      'Prinsip kenyamanan spasial dan termal arsitektur lansekap tropis lembap Pekanbaru. Tinggi bebas 2,2 meter merupakan parameter adaptasi desain bebas benturan kepala, bukan kewajiban hukum statuter kaku. Keberadaan pohon tunggal tidak menyimpulkan seluruh rute terlindungi.',
+    devStatus: CRITERION_DEV_STATUS.DRAFT,
+  }),
 ]

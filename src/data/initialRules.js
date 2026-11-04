@@ -148,4 +148,34 @@ export const initialAssessmentRules = [
     unknownHandling:
       'Jika status unknown, ketersediaan pengumuman visual belum dapat dipastikan.',
   }),
+
+  // =========================================================================
+  // DAYA TAHAN FISIK & ISTIRAHAT (STAMINA_PACING)
+  // =========================================================================
+
+  // Bangku istirahat — kritis untuk daya tahan fisik & istirahat
+  createAssessmentRule({
+    id: 'rule_circulation_rest_benches',
+    criterionId: 'crit_circulation_rest_benches',
+    description:
+      'Bangku istirahat publik dianggap tersedia jika ada observasi confirmed_yes (bangku stabil, bersandaran punggung, gratis di sirkulasi publik). Keberadaan satu bangku atau kursi komersial berbayar tidak cukup untuk menyatakan kriteria terpenuhi.',
+    fulfilledWhen: [OBSERVATION_STATUS.CONFIRMED_YES],
+    notFulfilledWhen: [OBSERVATION_STATUS.CONFIRMED_NO],
+    criticalForNeeds: [NEED_GROUP.STAMINA_PACING],
+    unknownHandling:
+      'Jika status unknown, ketersediaan tempat duduk istirahat yang memadai belum dapat dipastikan.',
+  }),
+
+  // Peneduh cuaca — kritis untuk daya tahan fisik pada ruang terbuka publik
+  createAssessmentRule({
+    id: 'rule_open_space_shade',
+    criterionId: 'crit_open_space_shade',
+    description:
+      'Peneduh cuaca dianggap memadai jika ada observasi confirmed_yes (area istirahat dan jalur sirkulasi utama terlindung dari paparan matahari terik). Keberadaan peneduh lokal tidak otomatis melindungi seluruh area.',
+    fulfilledWhen: [OBSERVATION_STATUS.CONFIRMED_YES],
+    notFulfilledWhen: [OBSERVATION_STATUS.CONFIRMED_NO],
+    criticalForNeeds: [NEED_GROUP.STAMINA_PACING],
+    unknownHandling:
+      'Jika status unknown atau kecukupan naungan belum terbukti, perlindungan cuaca belum dapat dipastikan.',
+  }),
 ]
